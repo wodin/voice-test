@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.expoVoiceTest"
+      "bundleIdentifier": "com.intelms.test.voiceTest"
     },
     "android": {
       "adaptiveIcon": {
