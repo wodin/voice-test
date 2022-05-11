@@ -1,5 +1,5 @@
 import 'expo-dev-client';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,40 @@ import Voice, {
   SpeechResultsEvent,
   SpeechErrorEvent,
 } from '@react-native-voice/voice';
+
+import DateTimePickerModal from '@react-native-community/datetimepicker';
+
+function TestDate() {
+  const [date, setDate] = useState(new Date());
+  const [visible, setVisible] = useState(false);
+
+  const handleChange = (event, date) => {
+    if (event.type === "set") {
+      setDate(date);
+    } else if (event.type === "dismissed") {
+      console.log("Dismissed!");
+    } else {
+      console.log(JSON.stringify(event));
+    }
+    setVisible(false);
+  };
+
+  return (
+    <View>
+      <TouchableHighlight onPress={() => setVisible(true)}>
+        <Text>{date.toDateString()}</Text>
+      </TouchableHighlight>
+      <Text>{date instanceof Date}</Text>
+      {visible && (
+        <DateTimePickerModal
+          mode="date"
+          value={date}
+          onChange={handleChange}
+        />
+      )}
+    </View>
+  );
+}
 
 class VoiceTest extends Component {
   state = {
@@ -182,6 +216,7 @@ class VoiceTest extends Component {
         <TouchableHighlight onPress={this._destroyRecognizer}>
           <Text style={styles.action}>Destroy</Text>
         </TouchableHighlight>
+        <TestDate />
       </View>
     );
   }
